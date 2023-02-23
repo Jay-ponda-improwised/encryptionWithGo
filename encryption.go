@@ -1,6 +1,7 @@
 package localCrypto
 
 import (
+	"errors"
 	"math/rand"
 	"time"
 )
@@ -22,7 +23,11 @@ func getRowColsForEncryption(length int, key int64) (int, int) {
 	return rows, cols
 }
 
-func NewEncryptedText(entry string) *CipherText {
+func NewEncryptedText(entry string) (*CipherText, error) {
+	if entry == "" {
+		return nil, errors.New("EmptyEntryFound")
+	}
+
 	key := genKey()
 	return &CipherText{
 		Entry: encrypteIt(entry, key),

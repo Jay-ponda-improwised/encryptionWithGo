@@ -1,6 +1,9 @@
 package localCrypto
 
-import "math/rand"
+import (
+	"errors"
+	"math/rand"
+)
 
 func getRowColsForDecryption(length int, key int64) (int, int) {
 	rand.Seed(key)
@@ -15,8 +18,12 @@ func getRowColsForDecryption(length int, key int64) (int, int) {
 	return rows, cols
 }
 
-func (d CipherText) Decrypt() string {
+func (d CipherText) Decrypt() (string, error) {
 	length := len(d.Entry)
+
+	if length == 0 {
+		return "", errors.New("EmptyEntryFound")
+	}
 	rows, cols := getRowColsForDecryption(length, d.key)
 	decodeIt := []byte(d.Entry)
 	matrix := make([][]byte, rows)
@@ -47,6 +54,6 @@ func (d CipherText) Decrypt() string {
 	return string(simpleText)
 }
 
-func (c CipherText) printKey() int64 {
+func (c CipherText) PrintKey() int64 {
 	return c.key
 }
