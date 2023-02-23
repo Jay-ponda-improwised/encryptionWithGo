@@ -11,10 +11,9 @@ go get -u github.com/Jay-ponda-improwised/encryptionWithGo
 - Install spacific version
 
 ```
-go get -u github.com/Jay-ponda-improwised/encryptionWithGo@v1.1.0
+go get -u github.com/Jay-ponda-improwised/encryptionWithGo@v1.2.0
 ```
 
-#
 
 ## Imports and package use
 
@@ -24,7 +23,6 @@ go get -u github.com/Jay-ponda-improwised/encryptionWithGo@v1.1.0
 import localCrypto "github.com/Jay-ponda-improwised/encryptionWithGo"
 ```
 
-#
 
 ## Core info about structure
 
@@ -43,7 +41,6 @@ import localCrypto "github.com/Jay-ponda-improwised/encryptionWithGo"
    - returns:
      - `CipherText, error`: Which is struct with encrypted-string and key, error
 
-<br/>
 
 2. EncrypteIt(entry string, key int64) (string, error)
 
@@ -61,18 +58,14 @@ import localCrypto "github.com/Jay-ponda-improwised/encryptionWithGo"
    - returns:
      - `string, error`: plain text (decrypted text), error
 
-<br/>
 
-4. DecryptIt(encEntry string, key int64) (string, error)
+2. DecryptIt(encEntry string, key int64) (string, error)
 
    - params:
      - `entry (string), key (int64)`: Entry takes string which you want to encrypt.
    - returns:
      - `string, error`: plain text (decrypted text), error
-
 <br/>
-
-#
 
 ## Errors
 
