@@ -51,7 +51,7 @@ func (d CipherText) Decrypt() (string, error) {
 			}
 		}
 	}
-	return string(simpleText)
+	return string(simpleText), nil
 }
 
 func (c CipherText) PrintKey() int64 {

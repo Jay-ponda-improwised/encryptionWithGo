@@ -32,7 +32,7 @@ func NewEncryptedText(entry string) (*CipherText, error) {
 	return &CipherText{
 		Entry: encrypteIt(entry, key),
 		key:   key,
-	}
+	}, nil
 }
 
 func encrypteIt(entry string, key int64) string {
