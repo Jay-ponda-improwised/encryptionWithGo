@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func genKey() int64 {
+func GenKey() int64 {
 	return time.Now().UnixMilli()
 }
 
@@ -23,20 +23,24 @@ func getRowColsForEncryption(length int, key int64) (int, int) {
 	return rows, cols
 }
 
-func NewEncryptedText(entry string) (*CipherText, error) {
+func Encrypt(entry string) (CipherText, error) {
 	if entry == "" {
-		return nil, errors.New("EmptyEntryFound")
+		return CipherText{}, errors.New("EmptyEntryFound")
 	}
 
-	key := genKey()
-	return &CipherText{
-		Entry: encrypteIt(entry, key),
+	key := GenKey()
+	enc, _ := EncrypteIt(entry, key)
+	return CipherText{
+		Entry: enc,
 		key:   key,
 	}, nil
 }
 
-func encrypteIt(entry string, key int64) string {
+func EncrypteIt(entry string, key int64) (string, error) {
 	l := len(entry)
+	if l == 0 {
+		return entry, errors.New("EmptyEntryFound")
+	}
 	rows, cols := getRowColsForEncryption(l, key)
 	matrix := make([][]byte, rows)
 	crypt := make([]byte, l)
@@ -67,5 +71,5 @@ func encrypteIt(entry string, key int64) string {
 		}
 	}
 
-	return string(crypt)
+	return string(crypt), nil
 }
