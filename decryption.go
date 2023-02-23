@@ -20,12 +20,26 @@ func getRowColsForDecryption(length int, key int64) (int, int) {
 
 func (d CipherText) Decrypt() (string, error) {
 	length := len(d.Entry)
+	if length == 0 {
+		return "", errors.New("EmptyEntryFound")
+	}
+
+	plainText, err := DecryptIt(d.Entry, d.key)
+	if err != nil {
+		return "", errors.New("UnExpectedErrorOccured")
+	}
+	return plainText, nil
+
+}
+
+func DecryptIt(encEntry string, key int64) (string, error) {
+	length := len(encEntry)
 
 	if length == 0 {
 		return "", errors.New("EmptyEntryFound")
 	}
-	rows, cols := getRowColsForDecryption(length, d.key)
-	decodeIt := []byte(d.Entry)
+	rows, cols := getRowColsForDecryption(length, key)
+	decodeIt := []byte(encEntry)
 	matrix := make([][]byte, rows)
 
 	for i := 0; i < rows; i++ {
